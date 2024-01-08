@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        * {
+            line-height: 300%;
+        }
+        
+        .border {
+            border: 1px solid black;
+            display: block;
+        }
+        
+        .no-bullets {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        #div1 {
+            /*parent*/
+            display: inline-block;
+            width: fit-content;
+            min-width: 100px;
+            height: fit-content;
+            min-height: 40px;
+            border: 1px solid #aaaaaa;
+            vertical-align: middle;
+            margin-bottom: 0px;
+        }
+        
+        span.a {
+            display: inline-block;
+            /* the default for span */
+            width: 500px;
+            height: 100px;
+            padding: 5px;
+            padding-left: 100px;
+            border: 6px solid black;
+            vertical-align: middle;
+            text-align: center;
+        }
+        
+        span.a>* {
+            vertical-align: middle;
+        }
+    </style>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function doNotAllowDrop(ev) {
+            return;
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+
+            if (ev.target.childNodes.length > 0) {
+                var par = ev.target.parentElement; //paragraph element
+                par.removeChild(par.childNodes[0]);
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                par.appendChild(document.getElementById(data).cloneNode(true));
+            } else {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text"); //data = li item
+                ev.target.appendChild(document.getElementById(data).cloneNode(true));
+            }
+        }
+
+        function dropAnswer(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+</head>
+
+<body>
+    <div class="col d-flex justify-content-center">
+
+
+        <div class="card" style="width: 50rem;">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+                <h3 class="card-title">Question :</h5>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum consequat scelerisque elit sit amet consequat. Aliquam erat volutpat.
+                        <p id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi provident voluptas rem dolores ea voluptatem minus libero non magnam suscipit dolore facilis illo, sed quae quis. Veritatis aliquid earum amet?
+                        <p id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></p> gravida nisl sit amet facilisis. Nullam cursus fermentum velit sed laoreet. </div>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">Answers :</h5>
+
+                    <ul class="no-bullets">
+                        <div class="card-body">
+
+                            <li class="no-bullets" id="drag1" draggable="true" ondragstart="drag(event)">item 1fakhwefawehfiaweufhi
+                            </li>
+                            <li class="no-bullets" id="drag2" draggable="true" ondragstart="drag(event)">item 2
+                            </li>
+                            <li class="no-bullets " ondrop="return false;" id="drag3" draggable="true" ondragstart="drag(event)">item 3
+                            </li>
+                            <li class="no-bullets " ondrop="return false;" id="drag4" draggable="true" ondragstart="drag(event)">item 4
+                            </li>
+                            <li class="no-bullets " ondrop="return false;" id="drag5" draggable="true" ondragstart="drag(event)">item 5
+                            </li>
+                        </div>
+                    </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
